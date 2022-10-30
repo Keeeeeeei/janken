@@ -44,3 +44,9 @@ press_number.times{
   end
   puts "#{win_count}勝#{lose_count}敗"
 }
+
+if win_count > lose_count
+  puts "結果\n#{win_count}勝#{lose_count}敗であなたの勝ち"
+else 
+  puts "結果\n#{win_count}勝#{lose_count}敗であなたの負け"
+end
