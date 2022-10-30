@@ -5,16 +5,7 @@ puts "#{press_number}本勝負を選びました"
 count_number = 0
 win_count = 0
 lose_count = 0
-
-
-def next_game_win
-  true
-end
-
-def next_game_lose
-  true
-end
-
+  
 def janken 
   puts "じゃんけん…(press g or c or p)"
   player_hand = gets.chomp
@@ -33,27 +24,23 @@ def janken
   puts "CPU…#{jankens[program_hand]} \nあなた…#{hand}" 
   if hand_number == program_hand
     puts "あいこで"
-    return janken
+    janken
   elsif(hand_number == 0 && program_hand == 1)||(hand_number == 1 && program_hand == 2)||(hand_number == 2 && program_hand == 0)
     puts "勝ち!"
-    return next_game_win
+    return true
   else
     puts "負け!"
-    return next_game_lose
+    return false
   end
-  
 end
-
-
 
 press_number.times{  
   count_number += 1
-  if next_game_win
+  puts "#{count_number}本目" 
+  if janken == true
     win_count += 1
-  else next_game_lose
+  else
     lose_count += 1
-  end 
-  puts "#{count_number}本目"
-  janken
+  end
   puts "#{win_count}勝#{lose_count}敗"
 }
