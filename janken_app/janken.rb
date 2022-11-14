@@ -2,6 +2,7 @@ puts "何本勝負？(press 1 or 3 or 5)"
 
 press_number = gets.to_i
 puts "#{press_number}本勝負を選びました"
+HANDS = [:g, :c, :p]
 count_number = 0
 win_count = 0
 lose_count = 0
@@ -9,23 +10,29 @@ lose_count = 0
 def janken 
   puts "じゃんけん…(press g or c or p)"
   player_hand = gets.chomp
-  jankens = ["グー", "チョキ","パー"]
+  
+  jankens = {
+    :g => 'グー',
+    :c => 'チョキ',
+    :p => 'パー'
+  }
+  
   if player_hand == "g"
-     hand_number = 0
-     hand = jankens[0]
+     hand = jankens[:g]
   elsif player_hand == "c"
-     hand_number = 1
-     hand = jankens[1]
+     hand = jankens[:c]
   else 
-     hand_number = 2
-     hand = jankens[2]
+     hand = jankens[:p]
   end
-  program_hand = rand(3)
-  puts "CPU…#{jankens[program_hand]} \nあなた…#{hand}" 
-  if hand_number == program_hand
+
+  cpu_random_hand = HANDS.sample
+  cpu_hand = jankens[cpu_random_hand]
+
+  puts "CPU…#{cpu_hand} \nあなた…#{hand}" 
+  if hand == cpu_hand
     puts "あいこで"
     janken
-  elsif(hand_number == 0 && program_hand == 1)||(hand_number == 1 && program_hand == 2)||(hand_number == 2 && program_hand == 0)
+  elsif(hand == "グー" && cpu_hand == "チョキ")||(hand == "チョキ" && cpu_hand == "グー")||(hand == "パー" && cpu_hand == "グー")
     puts "勝ち!"
     return true
   else
@@ -37,7 +44,7 @@ end
 press_number.times{  
   count_number += 1
   puts "#{count_number}本目" 
-  if janken == true
+  if janken 
     win_count += 1
   else
     lose_count += 1
